@@ -1,17 +1,21 @@
-import { defineStore, StateTree } from "pinia";
-import { reactive } from "vue";
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
 interface IValidationError {
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
 }
 
 export const useErrorStore = defineStore("error", () => {
-  const validations = reactive<IValidationError>({ title: "", content: "" });
+  const validations = ref<IValidationError>({});
 
-  function setValidationError(state: StateTree, error: string) {
-    state.validations = error;
+  function setValidationError(error: IValidationError) {
+    validations.value = error;
   }
 
-  return { validations, setValidationError };
+  function $reset() {
+    validations.value = {};
+  }
+
+  return { validations, setValidationError, $reset };
 });

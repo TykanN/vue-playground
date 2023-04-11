@@ -5,7 +5,7 @@
         <label for="title">제목</label>
         <input type="text" class="form-control" id="title" v-model="title" />
         <div
-          v-if="errors.validations.value.title !== undefined"
+          v-if="errors.validations.value.title != null"
           class="alert alert-danger"
         >
           {{ errors.validations.value.title }}
@@ -20,7 +20,7 @@
           v-model="content"
         />
         <div
-          v-if="errors.validations.value.content !== undefined"
+          v-if="errors.validations.value.content != null"
           class="alert alert-danger"
         >
           {{ errors.validations.value.content }}
@@ -43,15 +43,9 @@ import { useErrorStore } from "@/store/error";
 let title = "";
 let content = "";
 
-let errors = storeToRefs(useErrorStore());
+const errors = storeToRefs(useErrorStore());
+
 function write() {
-  boardApi
-    .store(title, content)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  boardApi.store(title, content);
 }
 </script>

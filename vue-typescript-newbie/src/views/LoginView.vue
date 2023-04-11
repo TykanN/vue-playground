@@ -22,19 +22,14 @@
 </template>
 
 <script setup lang="ts">
-import * as authApi from "@/api/auth";
+import { useAuthStore } from "@/store/auth";
+
+const authStore = useAuthStore();
 
 var userid = "";
 var password = "";
 
 function login() {
-  authApi
-    .login(userid, password)
-    .then((response) => {
-      console.log(response.data.token);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  authStore.login({ userId: userid, password: password });
 }
 </script>
